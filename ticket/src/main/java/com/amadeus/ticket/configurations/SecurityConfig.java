@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public static PasswordEncoder passwordEncode() {
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -37,7 +37,7 @@ public class SecurityConfig {
 
         UserDetails user = User.builder()
                 .username("amadeus")
-                .password("password123")
+                .password(passwordEncoder().encode("password123"))
                 .roles("USER")
                 .build();
 

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "airport")
+@Table(name = "airport", uniqueConstraints = @UniqueConstraint(columnNames = {"city"}))
 public class Airport {
 
     @Id

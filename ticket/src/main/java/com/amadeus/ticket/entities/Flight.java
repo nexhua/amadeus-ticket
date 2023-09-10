@@ -21,9 +21,11 @@ public class Flight {
     private Integer flightId;
 
     @ManyToOne
+    @JoinColumn(name = "departure_airport")
     private Airport departureAirport;
 
     @ManyToOne
+    @JoinColumn(name = "arrival_airport")
     private Airport arrivalAirport;
 
     private OffsetDateTime departureDateTime;
