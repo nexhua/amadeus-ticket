@@ -1,0 +1,5 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/amadeus
+spring.datasource.username=postgres
+spring.datasource.password=<YOUR-PASSWORD>
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+springdoc.show-login-endpoint=true
