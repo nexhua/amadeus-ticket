@@ -1,5 +1,6 @@
 package com.amadeus.ticket.controllers;
 
+import com.amadeus.ticket.inputs.PagingInput;
 import com.amadeus.ticket.inputs.SearchInput;
 import com.amadeus.ticket.repositories.FlightRepository;
 import jakarta.validation.Valid;
@@ -48,7 +49,7 @@ public class SearchController {
 
                 LocalDate returnDate = LocalDate.parse(input.getReturnDateTime().get(), formatter);
 
-                return ResponseEntity.ok().body(this.flightRepository.findBothWayFlightsWithPagination(
+                return ResponseEntity.ok().body(this.flightRepository.findTwoWayFlightsWithPagination(
                         input.getDepartureAirport(),
                         input.getArrivalAirport(),
                         departureDate,
@@ -60,5 +61,10 @@ public class SearchController {
                 return ResponseEntity.badRequest().build();
             }
         }
+    }
+
+    @GetMapping("two")
+    public ResponseEntity<?> searchTwoWay(@Valid PagingInput input) {
+        return ResponseEntity.ok(this.flightRepository.findTwoWay(PageRequest.of(input.getPageNumber(), input.getPageSize())));
     }
 }
