@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/flights")
 public class FlightController {
@@ -24,6 +26,13 @@ public class FlightController {
     @GetMapping
     public ResponseEntity<Page<Flight>> getFlights(@Valid PagingInput pagingInput) {
         return ResponseEntity.ok().body(this.flightRepository.findAll(PageRequest.of(pagingInput.getPageNumber(), pagingInput.getPageSize())));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Flight> findFlight(@RequestParam Integer id) {
+        Optional<Flight> optional = this.flightRepository.findById(id);
+
+        return optional.map(flight -> ResponseEntity.status(HttpStatus.FOUND).body(flight)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PostMapping
